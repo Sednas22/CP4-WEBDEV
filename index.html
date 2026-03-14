@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>CP4 - FED</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="icon" href="src/assets/img/plastieco.png" type="image/png">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
+            <div class="container">
+                <a class="navbar-brand" href="index.html"><img src="src/assets/img/plastieco.png" alt="Logo PlástiEco" width="75px" height="75px"></a>
+
+                <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="menu">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="src/pages/categorias.html?categoria=todos">Produtos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="src/pages/contato.html">Contato</a>
+                        </li>
+                    </ul>
+
+                    <i class="fa-solid fa-cart-shopping ms-3"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div id="banner" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                <img src="src/assets/img/prodeco1.png" class="d-block w-100">
+                </div>
+
+                <div class="carousel-item">
+                <img src="src/assets/img/prodeco2.png" class="d-block w-100">
+                </div>
+
+                <div class="carousel-item">
+                <img src="src/assets/img/promo.jpg" class="d-block w-100">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#banner" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+            <button class="carousel-control-next" type="button" data-bs-target="#banner" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+        </div>
+        
+
+        <h2 class="text-center mb-4">Tipos de produtos</h2>
+
+        <section class="categoria">
+            <div class="card card1">
+                <img src="src/assets/img/roupas.jpg" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">Roupas</h5>
+                    <a href="src/pages/categorias.html?categoria=roupas" class="btn btn-success">Ver produtos</a>
+                </div>
+            </div>
+
+
+            <div class="card card2">
+                <img src="src/assets/img/beleza.png" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">Beleza</h5>
+                    <a href="src/pages/categorias.html?categoria=beleza" class="btn btn-success">Ver produtos</a>
+                </div>
+            </div>
+
+
+            <div class="card card3">
+                <img src="src/assets/img/casa.jpg" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">Casa</h5>
+                    <a href="src/pages/categorias.html?categoria=casa" class="btn btn-success">Ver produtos</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-dark text-center p-4 mt-5 footer-cor">
+        <p><a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://whatsapp.com" target="_blank"><i class="fa-brands fa-whatsapp"></i></a></p>
+        <p><a href="src/pages/termos.html">Termos de uso • Política de privacidade</a></p>
+        <p>© PlástiEco - São Paulo - Cainã Sandes</p>
+    </footer>
+</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</html>
