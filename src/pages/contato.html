@@ -30,8 +30,6 @@
                             <a class="nav-link" href="contato.html">Contato</a>
                         </li>
                     </ul>
-
-                    <i class="fa-solid fa-cart-shopping ms-3"></i>
                 </div>
             </div>
         </nav>
@@ -42,25 +40,25 @@
         <form>
             <div class="mb-3">
                 <label>Nome</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" required>
             </div>
 
             <div class="mb-3">
                 <label>Email</label>
-                <input type="email" class="form-control">
+                <input type="email" class="form-control" required>
             </div>
 
             <div class="mb-3">
                 <label>Assunto</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" required>
             </div>
 
             <div class="mb-3">
                 <label>Mensagem</label>
-                <textarea class="form-control"></textarea>
+                <textarea class="form-control" required></textarea>
             </div>
 
-            <button type="submit" class="btn btn-success">Enviar</button>
+            <button type="submit" class="btn btn-success" onclick="if(this.form.checkValidity()){ alert('Agradecemos pelo contato! \nRetornaremos assim que possível.') }">Enviar</button>
         </form>
     </div>
 

@@ -1,6 +1,13 @@
 let produtos = []
 let carrinho = []
 
+const carrinhoSalvo = localStorage.getItem('carrinho')
+if (carrinhoSalvo) {
+  carrinho = JSON.parse(carrinhoSalvo)
+}
+
+atualizarContador()
+
 fetch("../js/produtos.json")
   .then(res => res.json())
   .then(data => {
@@ -8,6 +15,26 @@ fetch("../js/produtos.json")
     const categoriaInicial = getCategoriaURL()
     marcarCategoriaInicial(categoriaInicial)
     aplicarFiltros()
+    renderizarCarrinho()
+    atualizarContador()
+  })
+
+let produtoAtual = null
+
+const carrinhoAside = document.getElementById('carrinho')
+
+document.getElementById('btnModalCarrinho').addEventListener('click', () => {
+    if (produtoAtual) {
+      adicionarAoCarrinho(produtoAtual)
+    }
+  })
+
+document.querySelector('.fa-cart-shopping').addEventListener('click', () => {
+    carrinhoAside.classList.add('ativo')
+  })
+
+document.getElementById('fecharCarrinho').addEventListener('click', () => {
+    carrinhoAside.classList.remove('ativo')
   })
 
 function adicionarAoCarrinho(prod) {
@@ -23,6 +50,57 @@ function adicionarAoCarrinho(prod) {
       quantidade: 1
     })
   }
+
+  renderizarCarrinho()
+  salvarCarrinho()
+  atualizarContador()
+}
+
+function renderizarCarrinho() {
+  const container = document.getElementById('carrinho-itens')
+  const totalElemento = document.getElementById('carrinho-total')
+
+  container.innerHTML = ""
+
+  let total = 0
+
+  carrinho.forEach(item => {
+    const div = document.createElement('div')
+    div.classList.add('item-carrinho')
+
+    const subtotal = item.preco * item.quantidade
+    total += subtotal
+
+    div.innerHTML = `
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <p class="mb-1">${item.nome}</p>
+            <small>R$ ${subtotal.toFixed(2)}</small>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+            <button class="btn btn-sm btn-secondary btn-menos">-</button>
+            <span>${item.quantidade}</span>
+            <button class="btn btn-sm btn-success btn-mais">+</button>
+            <button class="btn btn-sm btn-danger btn-remover">🗑</button>
+        </div>
+    </div>
+    `
+    div.querySelector('.btn-mais').addEventListener('click', () => {
+        alterarQuantidade(item.id, 1)
+    })
+
+    div.querySelector('.btn-menos').addEventListener('click', () => {
+        alterarQuantidade(item.id, -1)
+    })
+
+    div.querySelector('.btn-remover').addEventListener('click', () => {
+        removerDoCarrinho(item.id)
+    })
+    container.appendChild(div)
+  })
+
+  totalElemento.textContent = `Total: R$ ${total.toFixed(2)}`
 }
   
 function renderizarProdutos(lista) {
@@ -47,28 +125,34 @@ function renderizarProdutos(lista) {
         abrirModal(prod)
     })
 
+    card.querySelector('.btn-carrinho').addEventListener('click', () => {
+            adicionarAoCarrinho(prod)
+        })
+
     container.appendChild(card)
-  })
+  })    
 }
 
 function abrirModal(prod){
 
-  document.getElementById('modalImagem').src = prod.imagem
-  document.getElementById('modalTitulo').textContent = prod.nome_desc
-  document.getElementById('modalDescricao').textContent = prod.descricao
-  document.getElementById('modalPreco').textContent = prod.preco.toFixed(2)
+    produtoAtual = prod
 
-  const modal = new bootstrap.Modal(document.getElementById('modalProduto'))
-  modal.show()
+    document.getElementById('modalImagem').src = prod.imagem
+    document.getElementById('modalTitulo').textContent = prod.nome_desc
+    document.getElementById('modalDescricao').textContent = prod.descricao
+    document.getElementById('modalPreco').textContent = prod.preco.toFixed(2)
+
+    const modal = new bootstrap.Modal(document.getElementById('modalProduto'))
+    modal.show()
 }
 
 function aplicarFiltros() {
-  const precoMin = parseFloat(document.getElementById('precoMin').value) || 0
-  const precoMax = parseFloat(document.getElementById('precoMax').value) || Infinity
+    const precoMin = parseFloat(document.getElementById('precoMin').value) || 0
+    const precoMax = parseFloat(document.getElementById('precoMax').value) || Infinity
 
-  const categoriaSelecionada = document.querySelector('#filtroCategoria .ativo')?.dataset.categoria || 'todos'
+    const categoriaSelecionada = document.querySelector('#filtroCategoria .ativo')?.dataset.categoria || 'todos'
 
-  let filtrados = produtos.filter(prod => {
+    let filtrados = produtos.filter(prod => {
     const dentroPreco = prod.preco >= precoMin && prod.preco <= precoMax
     const dentroCategoria = categoriaSelecionada === 'todos' || prod.categoria === categoriaSelecionada
     return dentroPreco && dentroCategoria
@@ -112,4 +196,45 @@ function marcarCategoriaInicial(categoria) {
 
   const item = document.querySelector(`[data-categoria="${categoria}"]`)
   if (item) item.classList.add('ativo')
+}
+
+function salvarCarrinho() {
+  localStorage.setItem('carrinho', JSON.stringify(carrinho))
+}
+
+function atualizarContador() {
+  const contador = document.getElementById('contador-carrinho')
+
+  let totalItens = 0
+
+  carrinho.forEach(item => {
+    totalItens += item.quantidade
+  })
+
+  contador.textContent = totalItens
+}
+
+function removerDoCarrinho(id) {
+  carrinho = carrinho.filter(item => item.id !== id)
+
+  renderizarCarrinho()
+  salvarCarrinho()
+  atualizarContador()
+}
+
+function alterarQuantidade(id, delta) {
+  const item = carrinho.find(prod => prod.id === id)
+
+  if (!item) return
+
+  item.quantidade += delta
+
+  if (item.quantidade <= 0) {
+    removerDoCarrinho(id)
+    return
+  }
+
+  renderizarCarrinho()
+  salvarCarrinho()
+  atualizarContador()
 }

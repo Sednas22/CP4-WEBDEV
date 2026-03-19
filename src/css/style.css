@@ -151,6 +151,52 @@ a {
   cursor: pointer;
 }
 
+.carrinho {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 350px;
+  height: 100%;
+  background: white;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: right 0.3s ease;
+  z-index: 1000;
+}
+
+.carrinho.ativo {
+  right: 0;
+}
+
+.carrinho-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#fecharCarrinho {
+  cursor: pointer;
+  font-size: 24px;
+}
+
+#carrinho-itens {
+  flex: 1;
+  overflow-y: auto;
+  margin: 20px 0;
+}
+
+.item-carrinho {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+}
+
+.fa-cart-shopping {
+    cursor: pointer;
+}
+
 @media (max-width: 1200px){
     .produtos{
         grid-template-columns: repeat(2, 250px);
