@@ -84,6 +84,6 @@ O projeto foi desenvolvido como atividade avaliativa da disciplina de webdev, te
 
 <h3>Publicação:</h3> 
 <p>
-🔗 Link GitHub pages: https://sednas22.github.io/CP4-WEBDEV/<br>
-🔗 Link do repositório: https://github.com/Sednas22/CP4-WEBDEV
+🔗 Link GitHub pages: https://sednas22.github.io/PlastiEco/<br>
+🔗 Link do repositório: https://github.com/Sednas22/Plastieco
 </p>
